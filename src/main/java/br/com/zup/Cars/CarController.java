@@ -1,20 +1,26 @@
 package br.com.zup.Cars;
 
-import org.springframework.stereotype.Controller;
+import br.com.zup.Cars.DTO.CarroDto;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 
-@Controller
+
+@RestController
+@RequestMapping("/car")
 public class CarController {
-    @GetMapping("/car/fusca")
-    @ResponseBody
-    public HashMap<String, String>exibirFusca() {
-        HashMap<String, String> fusca = new HashMap<>();
-        fusca.put("Cor", "Azul");
-        fusca.put("Ano", "1994");
-        fusca.put("Motor", "Mil");
+    @GetMapping("/fusca")
+
+    public CarroDto exibirFusca() {
+        CarroDto fusca = new CarroDto("fusca", "branco", "mil", 1971);
         return fusca;
+    }
+
+    @GetMapping("gol")
+    public CarroDto exibirGol() {
+        CarroDto gol = new CarroDto("gol", "branco", "1.4", 2014);
+        return gol;
     }
 }
