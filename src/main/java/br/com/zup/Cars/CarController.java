@@ -1,26 +1,33 @@
 package br.com.zup.Cars;
 
 import br.com.zup.Cars.DTO.CarroDto;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+
+import java.util.List;
 
 
 @RestController
 @RequestMapping("/car")
 public class CarController {
-    @GetMapping("/fusca")
+    public List<CarroDto> garagem = new ArrayList<>();
 
-    public CarroDto exibirFusca() {
-        CarroDto fusca = new CarroDto("fusca", "branco", "mil", 1971);
-        return fusca;
+    @GetMapping()
+    public List<CarroDto> ExibirCars() {
+        return garagem;
     }
 
-    @GetMapping("gol")
-    public CarroDto exibirGol() {
-        CarroDto gol = new CarroDto("gol", "branco", "1.4", 2014);
-        return gol;
+    @PostMapping()
+    public void CadastrarCar(@RequestBody CarroDto carroDto) {
+        garagem.add(carroDto);
     }
+
+
+
+
 }
+
+
+
+
