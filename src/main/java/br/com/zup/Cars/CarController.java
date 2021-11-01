@@ -1,18 +1,20 @@
 package br.com.zup.Cars;
 
 import br.com.zup.Cars.DTO.CarroDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.ArrayList;
-
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/car")
 public class CarController {
+    @Autowired
+    private CarService carService;
+
     public List<CarroDto> garagem = new ArrayList<>();
 
     @GetMapping()
@@ -25,24 +27,25 @@ public class CarController {
         garagem.add(carroDto);
     }
 
-//método para exibir carro especifico
+    //método para exibir carro especifico
     @GetMapping("/{nomeDoCarro}")
     public CarroDto exibirCar(@PathVariable String nomeDoCarro) {
-       for (CarroDto carroReferencia : garagem) {
+        for (CarroDto carroReferencia : garagem) {
             if (carroReferencia.getModelo().equalsIgnoreCase(nomeDoCarro)
             ) {
-                   return carroReferencia;
+                return carroReferencia;
             }
 
         }
 
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
+
     //metodo para atualizar dados de um carro
     @PutMapping("{/nomeDoCarro")
-    public CarroDto atualizarCar(@PathVariable String nomeDoCarro, @RequestBody CarroDto carroDTO){
-        for (CarroDto carroReferencia:garagem) {
-            if(carroReferencia.getModelo().equalsIgnoreCase(nomeDoCarro)){
+    public CarroDto atualizarCar(@PathVariable String nomeDoCarro, @RequestBody CarroDto carroDTO) {
+        for (CarroDto carroReferencia : garagem) {
+            if (carroReferencia.getModelo().equalsIgnoreCase(nomeDoCarro)) {
                 carroReferencia.setCor(carroDTO.getCor());
                 carroReferencia.setAno(carroDTO.getAno());
                 carroReferencia.setMotor(carroDTO.getMotor());
@@ -52,18 +55,18 @@ public class CarController {
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
-
+//metodo para deletar carro especifico
     @DeleteMapping("{/nomeDoCarro}")
-    public void excluirCar(@PathVariable String nomeDoCarro){
-        for (CarroDto carroReferencia:garagem){
-            if (garagem.equals(nomeDoCarro)) {
+    public void excluirCar(@PathVariable String nomeDoCarro) {
+        for (CarroDto carroReferencia : garagem) {
+            if (garagem.contains(nomeDoCarro)) {
                 garagem.remove(carroReferencia);
             }
-            }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
+
+}
 
 
 
