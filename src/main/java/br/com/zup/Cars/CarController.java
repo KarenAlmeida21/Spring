@@ -53,7 +53,19 @@ public class CarController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-}
+    @DeleteMapping("{/nomeDoCarro}")
+    public void excluirCar(@PathVariable String nomeDoCarro){
+        for (CarroDto carroReferencia:garagem){
+            if (garagem.equals(nomeDoCarro)) {
+                garagem.remove(carroReferencia);
+            }
+            }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+
 
 
 
