@@ -24,6 +24,7 @@ public class CarController {
     public void CadastrarCar(@RequestBody CarroDto carroDto) {
         garagem.add(carroDto);
     }
+
 //método para exibir carro especifico
     @GetMapping("/{nomeDoCarro}")
     public CarroDto exibirCar(@PathVariable String nomeDoCarro) {
@@ -35,6 +36,20 @@ public class CarController {
 
         }
 
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+    //metodo para atualizar dados de um carro
+    @PutMapping("{/nomeDoCarro")
+    public CarroDto atualizarCar(@PathVariable String nomeDoCarro, @RequestBody CarroDto carroDTO){
+        for (CarroDto carroReferencia:garagem) {
+            if(carroReferencia.getModelo().equalsIgnoreCase(nomeDoCarro)){
+                carroReferencia.setCor(carroDTO.getCor());
+                carroReferencia.setAno(carroDTO.getAno());
+                carroReferencia.setMotor(carroDTO.getMotor());
+                return carroReferencia;
+            }
+
+        }if
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
